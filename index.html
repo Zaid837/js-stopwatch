@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./images/hourglass.svg">
+    <title>Stopwatch Project</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+</head>
+<body>
+
+    <!-- header -->
+    <h1 class="header">Stopwatch 
+        <i class="fa fa-hourglass"></i>
+    </h1>
+    <!-- header ends -->
+
+
+    <!-- Stopwatch circle -->
+    <div class="stop-box">
+        <div class="circle">
+            <p class="time" id="time"><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></p>
+        </div>
+        <div class="controlbtn">
+            <button class="stopbtn" id="start" onclick="return start()">
+                <p class="stop" ><i class="fa fa-play" style="margin-right: 5px;"></i>Start</p>
+            </button>
+            <button class="stopbtn hide" id="stop" onclick="return stop()">
+                <p class="stop" ><i class="fa fa-stop" style="margin-right: 5px;"></i>Stop</p>
+            </button>
+            <button class="resetbtn" onclick="return reset()">
+                <p class="reset"><img src="/images/redo-solid.svg" style="width: 15px;" alt=""></p>
+            </button>
+            
+        </div>
+    </div>
+    <!-- stopwatch circle ends -->
+
+    <!-- footer -->
+    <footer>
+        <p>
+            Tamilore Zaid  
+            <a href=""><i class="fab fa-github socials"></i></a>
+            <a href="https://www.linkedin.com/in/tamilorezaid/" target="blank"><i class="fab fa-linkedin socials"></i></a>
+            <a href="https://twitter.com/Zaid_tamilore" target="blank"><i class="fab fa-twitter socials"></i></a></a>
+        </p>
+    </footer>
+    <!-- footer ends -->
+
+
+    <script>
+        function pad(n) {
+            return (n < 10) ? ("0" + n) : n;
+        }
+
+        //Hour timer
+        function hourTimer(){
+            let x = document.getElementById('hour').innerText
+            let hour = parseInt(x, 10);
+            let newHour = hour+1
+
+
+            document.getElementById('hour').innerHTML=pad(newHour)
+        }
+
+        //minute timer
+        function minuteTimer(){
+            let x= document.getElementById('min').innerText
+            let min = parseInt(x, 10);
+            let newMin = min+1
+
+            if(newMin > 60){
+                newMin = 0;
+                //trigger hour
+                hourTimer()
+            }
+
+            document.getElementById('min').innerHTML=pad(newMin)
+
+        }
+        var intervalId;
+
+        //seconds timer
+        function secondsTimer(){
+            let x= document.getElementById('sec').innerText
+            let sec = parseInt(x, 10);
+            
+            let newSec = sec+1
+            
+            if(newSec > 60 ) {
+                var time = 01
+                //triger minute
+                minuteTimer()
+            }else{ var time = newSec}
+
+
+            document.getElementById('sec').innerHTML=pad(time)
+        }
+
+        // start button function
+        function start(){
+            intervalId = setInterval(secondsTimer, 1000);
+
+            document.getElementById('start').classList.add('hide')
+            document.getElementById('stop').classList.remove('hide')
+        }
+        // reset button function
+        function reset(){
+            clearInterval(intervalId);
+            document.getElementById('sec').innerHTML='00'
+            document.getElementById('min').innerHTML='00'
+
+            document.getElementById('stop').classList.add('hide')
+            document.getElementById('start').classList.remove('hide')
+        }
+
+        //stop button function
+        function stop(){
+            clearInterval(intervalId);
+        
+            document.getElementById('stop').classList.add('hide')
+            document.getElementById('start').classList.remove('hide')
+
+        }
+
+        
+    </script>
+</body>
+</html>
