@@ -7,5 +7,5 @@ Simple stopwatch functionality which has the following features:
 Feel free to fork and send a pull request for any changes/improvements. 
 
 View website:
-http://stopwatchapp.com/
+https://stopwatchweb.netlify.app/
 
